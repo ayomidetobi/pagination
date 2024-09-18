@@ -8,7 +8,7 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
             validate_input(boundaries) and validate_input(around)):
         return "All values must be instances of int"
     
-    if total_pages <= 0 or current_page <= 0 or current_page > total_pages:
+    if total_pages <= 0 or current_page <= 0 or around < 0 or current_page > total_pages:
         return "The values must be positive and within the correct range"
 
     pagination = []
