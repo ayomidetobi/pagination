@@ -67,7 +67,7 @@ def test_none_input() -> None:
     assert generate_pagination(4, None, 2, 2) == "All values must be instances of int"
     assert generate_pagination(4, 10, None, 2) == "All values must be instances of int"
     assert generate_pagination(4, 10, 2, None) == "All values must be instances of int"
-    
+
 def test_negative_input() -> None:
     assert generate_pagination(-1, 10, 2, 2) == "The values must be positive and within the correct range"
     assert generate_pagination(4, -1, 2, 2) == "The values must be positive and within the correct range"
