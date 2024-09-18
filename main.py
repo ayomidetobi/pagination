@@ -43,7 +43,7 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
         pagination.extend(right_bound)
 
     except IndexError:
-        return ""
+        return "The values must be positive and within the correct range"
 
     
     pagination_str = " ".join(map(str, pagination))

@@ -13,6 +13,7 @@ def test_invalid_total_and_current_pages() -> None:
     assert generate_pagination(3, 2, 1, 1) == "The values must be positive and within the correct range"
     assert generate_pagination(-1, 10, 2, 2) == "The values must be positive and within the correct range"
     assert generate_pagination(6, 5, 2, 1) == "The values must be positive and within the correct range"
+    assert generate_pagination(0, 0, 0, 0) == "The values must be positive and within the correct range"
 
 
 def test_first_last_page()->None:
@@ -26,7 +27,7 @@ def test_first_last_page()->None:
 
 
 def test_boundaries_or_around_are_zero() -> None:
-    assert generate_pagination(1, 5, 0, 0) == ""
+    assert generate_pagination(1, 5, 0, 0) == "The values must be positive and within the correct range"
     assert generate_pagination(3, 5, 1, 0) == "1 ... 3 ... 5"
     assert generate_pagination(5, 5, 1, 0) == "1 ... 5"
 
