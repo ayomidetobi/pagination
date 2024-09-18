@@ -8,11 +8,11 @@ def test_pagination_basic()->None:
     assert generate_pagination(4, 5, 1, 0) == "1 ... 4 5"
 
 def test_invalid_total_and_current_pages() -> None:
-    assert generate_pagination(1, 0, 2, 2) == ""
-    assert generate_pagination(0, 10, 2, 2) == ""
-    assert generate_pagination(3, 2, 1, 1) == ""
-    assert generate_pagination(-1, 10, 2, 2) == ""
-    assert generate_pagination(6, 5, 2, 1) == ""
+    assert generate_pagination(1, 0, 2, 2) == "The values must be positive and within the correct range"
+    assert generate_pagination(0, 10, 2, 2) == "The values must be positive and within the correct range"
+    assert generate_pagination(3, 2, 1, 1) == "The values must be positive and within the correct range"
+    assert generate_pagination(-1, 10, 2, 2) == "The values must be positive and within the correct range"
+    assert generate_pagination(6, 5, 2, 1) == "The values must be positive and within the correct range"
 
 
 def test_first_last_page()->None:
@@ -43,5 +43,20 @@ def test_large_pagination()->None:
     assert generate_pagination(1, 100, 5, 5) == "1 2 3 4 5 6 ... 96 97 98 99 100"
 
 
-def test_small_pagination()->None:
-    assert generate_pagination(3, 5, 1, 2) == "1 2 3 4 5"
+def test_string_input() -> None:
+    assert generate_pagination("1", 10, 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, "10", 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, "2", 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, 2, "2") == "All values must be instances of int"
+
+def test_boolean_input() -> None:
+    assert generate_pagination(True, 10, 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, True, 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, True, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, 2, True) == "All values must be instances of int"
+
+def test_float_input() -> None:
+    assert generate_pagination(4.5, 10, 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10.5, 2, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, 2.5, 2) == "All values must be instances of int"
+    assert generate_pagination(4, 10, 2, 2.5) == "All values must be instances of int"

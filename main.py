@@ -1,6 +1,15 @@
 def generate_pagination(current_page: int, total_pages: int, boundaries: int, around: int) -> str:
+
+    def validate_input(value) -> bool:
+        return isinstance(value, int) and not isinstance(value, bool)
+
+
+    if not (validate_input(current_page) and validate_input(total_pages) and
+            validate_input(boundaries) and validate_input(around)):
+        return "All values must be instances of int"
+    
     if total_pages <= 0 or current_page <= 0 or current_page > total_pages:
-        return ""
+        return "The values must be positive and within the correct range"
 
     pagination = []
     try:
