@@ -47,7 +47,7 @@ print(result)  # Expected output: 1 2 3 4 5 6 ... 9 10
 
 # Installation
 
-To set up the environment for this project, you need to have Python installed on your machine. You can download the latest version from python.org.
+To set up the environment for this project, you need to have Python installed on your machine. You can download the latest version from [python.org](https://python.org).
 
 # 1. Clone this repository:
 
