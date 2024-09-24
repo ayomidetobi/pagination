@@ -16,16 +16,9 @@ def test_invalid_total_and_current_pages() -> None:
     )
     assert (
         generate_pagination(0, 10, 2, 2)
-        == "The values must be positive and within the correct range"
+        == "1 2 ... 9 10"
     )
-    assert (
-        generate_pagination(3, 2, 1, 1)
-        == "The values must be positive and within the correct range"
-    )
-    assert (
-        generate_pagination(6, 5, 2, 1)
-        == "The values must be positive and within the correct range"
-    )
+    
     assert (
         generate_pagination(0, 0, 0, 0)
         == "The values must be positive and within the correct range"
@@ -55,12 +48,24 @@ def test_boundaries_cover_all_pages() -> None:
     assert generate_pagination(5, 5, 5, 5) == "1 2 3 4 5"
 
 
-def test_large_pagination() -> None:
+def test_large_values() -> None:
     assert (
-        generate_pagination(50, 100, 10, 10)
-        == "1 2 3 4 5 6 7 8 9 10 ... 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 ... 91 92 93 94 95 96 97 98 99 100"
+        generate_pagination(1000000000, 10, 2, 1)
+        == "1 2 ... 9 10"
     )
-    assert generate_pagination(1, 100, 5, 5) == "1 2 3 4 5 6 ... 96 97 98 99 100"
+    assert (
+        generate_pagination(3, 1000000000, 2, 1)
+        == "1 2 3 4 ... 999999999 1000000000"
+    )
+    assert (
+        generate_pagination(3, 10, 1000000000, 1)
+        == "1 2 3 4 5 6 7 8 9 10"
+    )
+    assert (
+        generate_pagination(3, 10, 2, 1000000000)
+        == "1 2 3 4 5 6 7 8 9 10"
+    )
+
 
 
 def test_string_input() -> None:
@@ -118,3 +123,6 @@ def test_boundaries_are_zero() -> None:
     assert generate_pagination(1, 10, 0, 2) == "1 2 3"
     assert generate_pagination(10, 10, 0, 0) == "... 10"
     assert generate_pagination(9, 10, 0, 2) == "... 7 8 9 10"
+
+
+

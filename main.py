@@ -15,10 +15,10 @@ def validate_parameters(current_page: int, total_pages: int, boundaries: int, ar
 
     if (
         total_pages <= 0
-        or current_page <= 0
+        or current_page < 0
         or around < 0
         or boundaries < 0
-        or current_page > total_pages
+        
     ):
         return "The values must be positive and within the correct range"
 
@@ -37,7 +37,7 @@ def get_around_pages(current_page: int, total_pages: int, boundaries: int, aroun
     return around_start, around_end
 
 
-def get_right_bound_start(total_pages: int, around_end: int, boundaries: int) -> int:
+def get_right_bound(total_pages: int, around_end: int, boundaries: int) -> int:
     """Get the starting page of the right boundary."""
     return max(total_pages - boundaries + 1, around_end + 1) if boundaries > 0 else around_end + 1
 
@@ -48,6 +48,9 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
     validation_error = validate_parameters(current_page, total_pages, boundaries, around)
     if validation_error:
         return validation_error
+
+    boundaries = min(boundaries, total_pages)
+    around = min(around, total_pages)
 
     pagination = []
     try:
@@ -64,7 +67,7 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
 
         pagination.extend(range(around_start, around_end + 1))
 
-        right_bound_start = get_right_bound_start(total_pages, around_end, boundaries)
+        right_bound_start = get_right_bound(total_pages, around_end, boundaries)
 
         if right_bound_start > around_end + 1:
             pagination.append("...")
