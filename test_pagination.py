@@ -12,7 +12,7 @@ def test_pagination_basic() -> None:
 def test_invalid_total_and_current_pages() -> None:
     assert (
         generate_pagination(1, 0, 2, 2)
-        == "The values must be positive and within the correct range"
+        == "current page & total pages must be greater than 0"
     )
     assert (
         generate_pagination(0, 10, 2, 2)
@@ -21,7 +21,7 @@ def test_invalid_total_and_current_pages() -> None:
     
     assert (
         generate_pagination(0, 0, 0, 0)
-        == "The values must be positive and within the correct range"
+        == "current page & total pages must be greater than 0"
     )
 
 
@@ -36,7 +36,7 @@ def test_first_last_page() -> None:
 
 
 def test_around_are_zero() -> None:
-    assert generate_pagination(1, 5, 0, 0) == "1"
+    assert generate_pagination(1, 5, 0, 0) == "1 ..."
     assert generate_pagination(3, 5, 1, 0) == "1 ... 3 ... 5"
     assert generate_pagination(5, 5, 1, 0) == "1 ... 5"
 
@@ -99,30 +99,28 @@ def test_none_input() -> None:
 def test_negative_input() -> None:
     assert (
         generate_pagination(-1, 10, 2, 2)
-        == "The values must be positive and within the correct range"
+        == "current page & total pages must be greater than 0"
     )
     assert (
         generate_pagination(4, -1, 2, 2)
-        == "The values must be positive and within the correct range"
+        == "current page & total pages must be greater than 0"
     )
     assert (
         generate_pagination(4, 10, -1, 2)
-        == "The values must be positive and within the correct range"
+        == "amount & boundaries must be positive int"
     )
     assert (
         generate_pagination(4, 10, 2, -1)
-        == "The values must be positive and within the correct range"
+        == "amount & boundaries must be positive int"
     )
+
 
 
 def test_boundaries_are_zero() -> None:
     assert generate_pagination(5, 5, 0, 5) == "1 2 3 4 5"
     assert generate_pagination(1, 3, 0, 3) == "1 2 3"
-    assert generate_pagination(5, 10, 0, 0) == "... 5"
-    assert generate_pagination(1, 10, 0, 0) == "1"
-    assert generate_pagination(1, 10, 0, 2) == "1 2 3"
+    assert generate_pagination(5, 10, 0, 0) == "... 5 ..."
+    assert generate_pagination(1, 10, 0, 0) == "1 ..."
+    assert generate_pagination(1, 10, 0, 2) == "1 2 3 ..."
     assert generate_pagination(10, 10, 0, 0) == "... 10"
     assert generate_pagination(9, 10, 0, 2) == "... 7 8 9 10"
-
-
-
