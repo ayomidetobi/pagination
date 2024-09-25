@@ -74,7 +74,7 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
 
         return " ".join(map(str, pagination))
 
-    if boundaries >= total_pages:
+    if boundaries >= total_pages/2:
         return " ".join(map(str, range(1, total_pages + 1)))
 
     left_bound = get_left_bound(boundaries, total_pages)
