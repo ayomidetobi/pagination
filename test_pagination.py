@@ -10,19 +10,10 @@ def test_pagination_basic() -> None:
 
 
 def test_invalid_total_and_current_pages() -> None:
-    assert (
-        generate_pagination(1, 0, 2, 2)
-        == "current page & total pages must be greater than 0"
-    )
-    assert (
-        generate_pagination(0, 10, 2, 2)
-        == "1 2 ... 9 10"
-    )
-    
-    assert (
-        generate_pagination(0, 0, 0, 0)
-        == "current page & total pages must be greater than 0"
-    )
+    assert generate_pagination(1, 0, 2, 2) == "current page & total pages must be greater than 0"
+    assert generate_pagination(0, 10, 2, 2) == "1 2 ... 9 10"
+
+    assert generate_pagination(0, 0, 0, 0) == "current page & total pages must be greater than 0"
 
 
 def test_first_last_page() -> None:
@@ -49,23 +40,10 @@ def test_boundaries_cover_all_pages() -> None:
 
 
 def test_large_values() -> None:
-    assert (
-        generate_pagination(1000000000, 10, 2, 1)
-        == "1 2 ... 9 10"
-    )
-    assert (
-        generate_pagination(3, 1000000000, 2, 1)
-        == "1 2 3 4 ... 999999999 1000000000"
-    )
-    assert (
-        generate_pagination(3, 10, 1000000000, 1)
-        == "1 2 3 4 5 6 7 8 9 10"
-    )
-    assert (
-        generate_pagination(3, 10, 2, 1000000000)
-        == "1 2 3 4 5 6 7 8 9 10"
-    )
-
+    assert generate_pagination(1000000000, 10, 2, 1) == "1 2 ... 9 10"
+    assert generate_pagination(3, 1000000000, 2, 1) == "1 2 3 4 ... 999999999 1000000000"
+    assert generate_pagination(3, 10, 1000000000, 1) == "1 2 3 4 5 6 7 8 9 10"
+    assert generate_pagination(3, 10, 2, 1000000000) == "1 2 3 4 5 6 7 8 9 10"
 
 
 def test_string_input() -> None:
@@ -97,23 +75,10 @@ def test_none_input() -> None:
 
 
 def test_negative_input() -> None:
-    assert (
-        generate_pagination(-1, 10, 2, 2)
-        == "current page & total pages must be greater than 0"
-    )
-    assert (
-        generate_pagination(4, -1, 2, 2)
-        == "current page & total pages must be greater than 0"
-    )
-    assert (
-        generate_pagination(4, 10, -1, 2)
-        == "amount & boundaries must be positive int"
-    )
-    assert (
-        generate_pagination(4, 10, 2, -1)
-        == "amount & boundaries must be positive int"
-    )
-
+    assert generate_pagination(-1, 10, 2, 2) == "current page & total pages must be greater than 0"
+    assert generate_pagination(4, -1, 2, 2) == "current page & total pages must be greater than 0"
+    assert generate_pagination(4, 10, -1, 2) == "amount & boundaries must be positive int"
+    assert generate_pagination(4, 10, 2, -1) == "amount & boundaries must be positive int"
 
 
 def test_boundaries_are_zero() -> None:
