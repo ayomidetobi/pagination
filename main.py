@@ -22,14 +22,14 @@ def validate_parameters(current_page: int, total_pages: int, boundaries: int, ar
     return ""
 
 
-def get_left_bound(boundaries: int, total_pages: int) -> list:
+def get_left_boundary_pages(boundaries: int, total_pages: int) -> list:
     """Get the left boundary pages."""
     if boundaries > 0:
         return list(range(1, min(boundaries + 1, total_pages + 1)))
     return []
 
 
-def get_around_pages(current_page: int, total_pages: int, boundaries: int, around: int) -> tuple:
+def get_pages_around_current_page(current_page: int, total_pages: int, boundaries: int, around: int) -> tuple:
     """Get the start and end pages around the current page."""
     if boundaries == 0:
         around_start = max(current_page - around, 1)
@@ -41,7 +41,7 @@ def get_around_pages(current_page: int, total_pages: int, boundaries: int, aroun
     return around_start, around_end
 
 
-def get_right_bound(total_pages: int, around_end: int, boundaries: int) -> int:
+def get_start_page_right_boundary(total_pages: int, around_end: int, boundaries: int) -> int:
     """Get the starting page of the right boundary."""
     if boundaries > 0:
         return max(total_pages - boundaries + 1, around_end + 1)
@@ -77,17 +77,17 @@ def generate_pagination(current_page: int, total_pages: int, boundaries: int, ar
     if boundaries >= total_pages/2:
         return " ".join(map(str, range(1, total_pages + 1)))
 
-    left_bound = get_left_bound(boundaries, total_pages)
+    left_bound = get_left_boundary_pages(boundaries, total_pages)
     pagination.extend(left_bound)
 
-    around_start, around_end = get_around_pages(current_page, total_pages, boundaries, around)
+    around_start, around_end = get_pages_around_current_page(current_page, total_pages, boundaries, around)
 
     if around_start > (left_bound[-1] if left_bound else 1) + 1:
         pagination.append("...")
 
     pagination.extend(range(around_start, around_end + 1))
 
-    right_bound_start = get_right_bound(total_pages, around_end, boundaries)
+    right_bound_start = get_start_page_right_boundary(total_pages, around_end, boundaries)
 
     if right_bound_start > around_end + 1:
         pagination.append("...")
